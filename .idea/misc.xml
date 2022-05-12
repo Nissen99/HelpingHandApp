@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/drawable/border.xml" value="0.3335" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/content_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/create_post_fragment.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/fragment_first.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/fragment_second.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/fragment_show_posts.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/Mikkel/AndroidStudioProjects/HelpingHandApp/app/src/main/res/layout/fragment_show_posts_list.xml" value="0.3453125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
