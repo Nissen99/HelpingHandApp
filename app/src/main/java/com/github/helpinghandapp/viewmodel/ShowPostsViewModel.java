@@ -20,6 +20,7 @@ public class ShowPostsViewModel extends ViewModel {
 
 
         listOfPosts.add(new Post("Hello1", "BODY"));
+        listOfPosts.add(new Post("Hello2", "BODY221321"));
         listOfPosts.add(new Post("Hello3", "BO321123DY2"));
         listOfPosts.add(new Post("Hello4", "BODY312312"));
         listOfPosts.add(new Post("Hello5", "BODY"));

@@ -3,26 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/showPostsFragment">
+
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.github.helpinghandapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        android:id="@+id/showPostsFragment"
+        android:name="com.github.helpinghandapp.fragment.ShowPostsFragment"
+        android:label="fragment_show_posts_list"
+        tools:layout="@layout/fragment_show_posts_list" />
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.github.helpinghandapp.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/createPostFragment"
+        android:name="com.github.helpinghandapp.fragment.CreatePostFragment"
+        android:label="create_post_fragment"
+        tools:layout="@layout/create_post_fragment" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_createPostFragment_to_showPostsFragment"
+            app:destination="@id/showPostsFragment" />
     </fragment>
 </navigation>

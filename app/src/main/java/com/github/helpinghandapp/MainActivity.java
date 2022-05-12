@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +36,21 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        Button button = findViewById(R.id.killMe);
+       // Button button = findViewById(R.id.killMe);
 
-        button.setOnClickListener(view -> {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.nav_host_fragment_content_main, new ShowPostsFragment());
-            transaction.commit();
-        });
+
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment_content_main, new CreatePostFragment());
-                transaction.commit();
+                transaction.commit();*/
+                navController.navigate(R.id.createPostFragment);
             }
         });
     }

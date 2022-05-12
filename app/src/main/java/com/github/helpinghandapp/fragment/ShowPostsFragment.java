@@ -66,20 +66,15 @@ public class ShowPostsFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            System.out.println("_____________RECYCLER__________________");
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                System.out.println("if mColumnCount <= 1");
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                System.out.println("ELSE");
-
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyPostRecyclerViewAdapter(viewModel.getListOfPosts()));
         }
-        System.out.println("DONNNNNNNNEEE");
 
         return view;
     }
