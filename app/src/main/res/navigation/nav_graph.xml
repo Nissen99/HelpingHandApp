@@ -10,7 +10,11 @@
         android:id="@+id/showPostsFragment"
         android:name="com.github.helpinghandapp.fragment.ShowPostsFragment"
         android:label="fragment_show_posts_list"
-        tools:layout="@layout/fragment_show_posts_list" />
+        tools:layout="@layout/fragment_show_posts_list" >
+        <action
+            android:id="@+id/action_showPostsFragment_to_inspectPostFragment"
+            app:destination="@id/inspectPostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createPostFragment"
         android:name="com.github.helpinghandapp.fragment.CreatePostFragment"
@@ -19,5 +23,14 @@
         <action
             android:id="@+id/action_createPostFragment_to_showPostsFragment"
             app:destination="@id/showPostsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inspectPostFragment"
+        android:name="com.github.helpinghandapp.fragment.InspectPostFragment"
+        android:label="fragment_inspect_post_list"
+        tools:layout="@layout/fragment_inspect_post_list" >
+        <argument
+            android:name="postId"
+            app:argType="integer" />
     </fragment>
 </navigation>

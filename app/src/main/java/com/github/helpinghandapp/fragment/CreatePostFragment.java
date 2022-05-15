@@ -35,6 +35,7 @@ public class CreatePostFragment extends Fragment {
         container.removeAllViews();
         View view = inflater.inflate(R.layout.create_post_fragment, container, false);
 
+
         EditText titleEditText = view.findViewById(R.id.postTitleTextView);
         listenerForChangeInTitleEditText(titleEditText);
         EditText bodyEditText = view.findViewById(R.id.postBodyMultiLine);

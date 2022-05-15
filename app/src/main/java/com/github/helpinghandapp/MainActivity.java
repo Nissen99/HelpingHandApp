@@ -1,5 +1,6 @@
 package com.github.helpinghandapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.helpinghandapp.fragment.CreatePostFragment;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,16 +18,21 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.github.helpinghandapp.databinding.ActivityMainBinding;
 import com.github.helpinghandapp.fragment.ShowPostsFragment;
+import com.github.helpinghandapp.signin.SignInActivity;
+import com.github.helpinghandapp.signin.SignInViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    NavController navController;
+    private NavController navController;
+    private SignInViewModel signInViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +47,13 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-       // Button button = findViewById(R.id.killMe);
 
+        signInViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
 
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_content_main, new CreatePostFragment());
-                transaction.commit();*/
                 navController.navigate(R.id.createPostFragment);
             }
         });
@@ -70,8 +74,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_logout) {
+            Toast.makeText(this, "LOGOUTTTTTTT", Toast.LENGTH_SHORT).show();
+            signInViewModel.signOut();
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -84,5 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
