@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +77,12 @@ public class InspectPostFragment extends Fragment {
         TextView postBodyView = viewForPost.findViewById(R.id.content);
         postBodyView.setText(postInspected.getBody());
 
+        EditText writeCommentField = viewForPost.findViewById(R.id.inspectCommentEditText);
+        listenToEditTextAndUpdateViewModel(writeCommentField);
+        Button buttonToSubmitComment = viewForPost.findViewById(R.id.inspectCommentButton);
+        buttonToSubmitComment.setOnClickListener(view1 -> {
+            viewModel.addCommentOnPost(postInspected);
+        });
 
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.commentsForInspect);
@@ -85,5 +95,24 @@ public class InspectPostFragment extends Fragment {
             recyclerView.setAdapter(new MyCommentRecyclerViewAdapter(postInspected.getComments()));
 
         return view;
+    }
+
+    private void listenToEditTextAndUpdateViewModel(EditText writeCommentField) {
+        writeCommentField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            viewModel.setCommentBody(writeCommentField.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 }

@@ -1,5 +1,9 @@
 package com.github.helpinghandapp.model;
 
+import androidx.lifecycle.LiveData;
+
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +11,13 @@ public class Post {
 
     private String body;
     private String title;
+    private LiveData<FirebaseUser> author;
     private int id;
     private List<Comment> comments;
 
 
-    public Post(String title, String body) {
+    public Post(String title, String body, LiveData<FirebaseUser> author) {
+        this.author = author;
         this.body = body;
         this.title = title;
         comments = new ArrayList<>();
@@ -51,5 +57,9 @@ public class Post {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public LiveData<FirebaseUser> getAuthor() {
+        return author;
     }
 }

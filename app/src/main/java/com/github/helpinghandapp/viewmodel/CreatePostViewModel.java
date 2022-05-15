@@ -1,30 +1,40 @@
 package com.github.helpinghandapp.viewmodel;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.github.helpinghandapp.model.Post;
-import com.github.helpinghandapp.repository.CreatePostRepository;
+import com.github.helpinghandapp.repository.PostRepository;
+import com.github.helpinghandapp.signin.data.UserLiveData;
+import com.github.helpinghandapp.signin.data.UserRepository;
+import com.google.firebase.auth.FirebaseUser;
 
-public class CreatePostViewModel extends ViewModel {
+public class CreatePostViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> title;
     private MutableLiveData<String> body;
-    private CreatePostRepository repository;
+    private PostRepository postRepository;
+    private Application application;
 
-    public CreatePostViewModel() {
-        super();
-        repository = new CreatePostRepository();
+    public CreatePostViewModel(Application application) {
+        super(application);
+        this.application = application;
+        postRepository = PostRepository.getInstance();
         title = new MutableLiveData<>();
         body = new MutableLiveData<>();
 
     }
 
     public void submitPost() {
-        System.out.println("Post submited: " + title.getValue());
-        Post newPost = new Post(title.getValue(), body.getValue());
-        repository.submitPost(newPost);
+        UserRepository userRepository = UserRepository.getInstance(application);
+
+        LiveData<FirebaseUser> currentUser = userRepository.getCurrentUser();
+        Post newPost = new Post(title.getValue(), body.getValue(), currentUser);
+        postRepository.submitPost(newPost);
     }
 
     public LiveData<String> getTitle() {

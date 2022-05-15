@@ -1,16 +1,18 @@
 package com.github.helpinghandapp.model;
 
+import androidx.lifecycle.LiveData;
+
+import com.google.firebase.auth.FirebaseUser;
+
 public class Comment {
 
     private String body;
-    private String name;
+    private LiveData<FirebaseUser> author;
 
-    public Comment() {
-    }
 
-    public Comment(String name, String body) {
+    public Comment(String body, LiveData<FirebaseUser> author) {
+        this.author = author;
         this.body = body;
-        this.name = name;
     }
 
     public String getBody() {
@@ -21,11 +23,7 @@ public class Comment {
         this.body = body;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public LiveData<FirebaseUser> getAuthor() {
+        return author;
     }
 }
