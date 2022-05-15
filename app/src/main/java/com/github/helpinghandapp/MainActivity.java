@@ -93,8 +93,5 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+
 }
