@@ -31,8 +31,7 @@ Som bruger er man ikke låst i en rolle, men kan skifte på transktions basis.
 
 
 
-
-## Appen skulle opfylde krav:
+## Hvordan appen opfylder krav for projektet:
 1. Basic - Det er en app som virker med kode der er nemt at tilføje til.
 2. Interaction - Her kan man både oprette posts og kommentarer.
 3. Navigation - Her har jeg 3 forskellige views man som bruger hele tiden skifter i mellem + login. Der bliver endda sendt data mellem ShowPost og InspectPost.
@@ -43,11 +42,3 @@ Som bruger er man ikke låst i en rolle, men kan skifte på transktions basis.
 8. Firebase - Jeg bruger firebase log in med AuthUI. Jeg bruger Firebase Realtime database til alt mit data.
 9. Quality - Her lærte vi Unit Test lidt for sent til jeg syntes det gav mening. Men alt er black box testet hvor jeg også så vidt muligt har prøvet "ZOMBIE" black box test.
  
-
-
-
-
-
-
-
-
