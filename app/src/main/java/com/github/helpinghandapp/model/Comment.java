@@ -4,15 +4,24 @@ import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseUser;
 
-public class Comment {
+import java.io.Serializable;
+import java.util.UUID;
+
+public class Comment implements Serializable {
 
     private String body;
-    private LiveData<FirebaseUser> author;
+    private String authorId;
+    private String id;
 
 
-    public Comment(String body, LiveData<FirebaseUser> author) {
-        this.author = author;
+    public Comment() {
+    }
+
+    public Comment(String body, String authorId) {
+        this.authorId = authorId;
         this.body = body;
+        this.id = java.util.UUID.randomUUID().toString();
+
     }
 
     public String getBody() {
@@ -23,7 +32,19 @@ public class Comment {
         this.body = body;
     }
 
-    public LiveData<FirebaseUser> getAuthor() {
-        return author;
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

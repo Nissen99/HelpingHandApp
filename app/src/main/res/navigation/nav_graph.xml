@@ -31,6 +31,6 @@
         tools:layout="@layout/fragment_inspect_post_list" >
         <argument
             android:name="postId"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
 </navigation>

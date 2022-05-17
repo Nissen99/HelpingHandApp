@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.helpinghandapp.R;
 import com.github.helpinghandapp.viewmodel.CreatePostViewModel;
@@ -45,9 +46,14 @@ public class CreatePostFragment extends Fragment {
 
         Button submitPostButton = view.findViewById(R.id.submitPostButton);
         submitPostButton.setOnClickListener(view1 -> {
-            mViewModel.submitPost();
-            NavHostFragment.findNavController(CreatePostFragment.this)
-                    .navigate(R.id.showPostsFragment);
+            try {
+                mViewModel.submitPost();
+                NavHostFragment.findNavController(CreatePostFragment.this)
+                        .navigate(R.id.showPostsFragment);
+            } catch (IllegalArgumentException e){
+                Toast.makeText(getContext(), "You have to fill out all fields", Toast.LENGTH_SHORT).show();
+            }
+
         });
 
 

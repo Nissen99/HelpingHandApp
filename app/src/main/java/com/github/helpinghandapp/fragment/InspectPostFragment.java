@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +26,7 @@ import com.github.helpinghandapp.R;
 import com.github.helpinghandapp.adapter.MyCommentRecyclerViewAdapter;
 import com.github.helpinghandapp.model.Post;
 import com.github.helpinghandapp.viewmodel.InspectPostViewModel;
+import com.github.helpinghandapp.viewmodel.UserViewModel;
 
 /**
  * A fragment representing a list of Items.
@@ -36,8 +40,10 @@ public class InspectPostFragment extends Fragment {
     private int mColumnCount = 1;
 
     private InspectPostViewModel viewModel;
+    private UserViewModel userViewModel;
 
-    private Post postInspected;
+
+    private LiveData<Post> postInspected = new MutableLiveData<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,26 +69,20 @@ public class InspectPostFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_inspect_post_with_comments, container, false);
         viewModel = new ViewModelProvider(this).get(InspectPostViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-
-
-        int postId = getArguments().getInt(POST_ID);
-        postInspected = viewModel.getPostFromId(postId);
 
         View viewForPost = view.findViewById(R.id.postFromInspect);
-        TextView postTitleView = viewForPost.findViewById(R.id.item_number);
-        postTitleView.setText(postInspected.getTitle());
+
+        TextView postTitleView = viewForPost.findViewById(R.id.title);
+
+        TextView postBodyView = viewForPost.findViewById(R.id.body);
+
+        TextView postAuthorView = viewForPost.findViewById(R.id.author);
 
 
-        TextView postBodyView = viewForPost.findViewById(R.id.content);
-        postBodyView.setText(postInspected.getBody());
-
-        EditText writeCommentField = viewForPost.findViewById(R.id.inspectCommentEditText);
-        listenToEditTextAndUpdateViewModel(writeCommentField);
-        Button buttonToSubmitComment = viewForPost.findViewById(R.id.inspectCommentButton);
-        buttonToSubmitComment.setOnClickListener(view1 -> {
-            viewModel.addCommentOnPost(postInspected);
-        });
+        String postId = getArguments().getString(POST_ID);
+        postInspected = viewModel.getPostFromId(postId);
 
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.commentsForInspect);
@@ -92,7 +92,45 @@ public class InspectPostFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCommentRecyclerViewAdapter(postInspected.getComments()));
+
+
+        postInspected.observe(getViewLifecycleOwner(), new Observer<Post>() {
+            @Override
+            public void onChanged(Post post) {
+                postTitleView.setText(post.getTitle());
+
+                postBodyView.setText(post.getBody());
+
+
+                userViewModel.getDisplayNameFromUid(post.getAuthorId()).observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        postAuthorView.setText(s);
+                    }
+                });
+
+
+                recyclerView.setAdapter(new MyCommentRecyclerViewAdapter(post.getComments(), getActivity().getApplication()));
+            }
+        });
+
+        EditText writeCommentField = view.findViewById(R.id.inspectCommentEditText);
+        Button buttonToSubmitComment = view.findViewById(R.id.inspectCommentButton);
+
+
+        listenToEditTextAndUpdateViewModel(writeCommentField);
+
+        buttonToSubmitComment.setOnClickListener(view1 -> {
+            try {
+                viewModel.addCommentOnPost(postInspected.getValue());
+                writeCommentField.setText("");
+            } catch (IllegalArgumentException e){
+                Toast.makeText(context, "Cannot post empty comment", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
 
         return view;
     }
@@ -101,7 +139,6 @@ public class InspectPostFragment extends Fragment {
         writeCommentField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override

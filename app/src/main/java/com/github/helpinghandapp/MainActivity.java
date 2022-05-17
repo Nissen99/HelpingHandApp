@@ -3,13 +3,10 @@ package com.github.helpinghandapp;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.github.helpinghandapp.fragment.CreatePostFragment;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,15 +14,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.github.helpinghandapp.databinding.ActivityMainBinding;
-import com.github.helpinghandapp.fragment.ShowPostsFragment;
-import com.github.helpinghandapp.signin.SignInActivity;
-import com.github.helpinghandapp.signin.SignInViewModel;
-import com.google.firebase.auth.FirebaseAuth;
+import com.github.helpinghandapp.viewmodel.SignInViewModel;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
         setSupportActionBar(binding.toolbar);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -49,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         signInViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
+
+        signInViewModel.saveDisplayNameFromUser();
+
+
 
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            Toast.makeText(this, "LOGOUTTTTTTT", Toast.LENGTH_SHORT).show();
             signInViewModel.signOut();
             Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
 

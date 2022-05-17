@@ -1,4 +1,4 @@
-package com.github.helpinghandapp.signin;
+package com.github.helpinghandapp.viewmodel;
 
 
 import android.app.Application;
@@ -6,7 +6,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.github.helpinghandapp.signin.data.UserRepository;
+import com.github.helpinghandapp.repository.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignInViewModel extends AndroidViewModel {
@@ -15,6 +15,12 @@ public class SignInViewModel extends AndroidViewModel {
     public SignInViewModel(Application app){
         super(app);
         userRepository = UserRepository.getInstance(app);
+    }
+
+    public void saveDisplayNameFromUser() {
+        if (getCurrentUser() != null) {
+            userRepository.saveDisplayNameFromUser();
+        }
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){

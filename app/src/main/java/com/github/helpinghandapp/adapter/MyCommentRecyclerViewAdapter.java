@@ -1,13 +1,16 @@
 package com.github.helpinghandapp.adapter;
 
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.helpinghandapp.databinding.FragmentInspectPostBinding;
 import com.github.helpinghandapp.model.Comment;
+import com.github.helpinghandapp.repository.UserRepository;
 
 import java.util.List;
 
@@ -18,9 +21,11 @@ import java.util.List;
 public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyCommentRecyclerViewAdapter.ViewHolder> {
 
     private final List<Comment> comments;
+    private UserRepository userRepository;
 
-    public MyCommentRecyclerViewAdapter(List<Comment> items) {
+    public MyCommentRecyclerViewAdapter(List<Comment> items, Application application) {
         comments = items;
+        userRepository = UserRepository.getInstance(application);
     }
 
     @Override
@@ -32,8 +37,15 @@ public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyComment
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = comments.get(position);
+        holder.mContentView.setText(comments.get(position).getBody());
+        userRepository.getDisplayNameFromUid(comments.get(position).getAuthorId()).observeForever( new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
 
+                holder.mIdView.setText(s);
+
+            }
+        });
     }
 
     @Override
@@ -48,7 +60,7 @@ public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyComment
 
         public ViewHolder(FragmentInspectPostBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
+            mIdView = binding.name;
             mContentView = binding.content;
         }
 

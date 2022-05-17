@@ -1,8 +1,7 @@
-package com.github.helpinghandapp.signin;
+package com.github.helpinghandapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -13,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.firebase.ui.auth.AuthUI;
 import com.github.helpinghandapp.MainActivity;
 import com.github.helpinghandapp.R;
+import com.github.helpinghandapp.viewmodel.SignInViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +22,9 @@ public class SignInActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK)
+                if (result.getResultCode() == RESULT_OK) {
                     goToMainActivity();
+                }
                 else
                     Toast.makeText(this, "SIGN IN CANCELLED", Toast.LENGTH_SHORT).show();
             });
@@ -60,5 +61,6 @@ public class SignInActivity extends AppCompatActivity {
                 .build();
 
         activityResultLauncher.launch(signInIntent);
+
     }
 }

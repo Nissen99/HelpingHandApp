@@ -5,12 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.github.helpinghandapp.model.Post;
 import com.github.helpinghandapp.repository.PostRepository;
-import com.github.helpinghandapp.signin.data.UserLiveData;
-import com.github.helpinghandapp.signin.data.UserRepository;
+import com.github.helpinghandapp.repository.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
 public class CreatePostViewModel extends AndroidViewModel {
@@ -30,10 +28,15 @@ public class CreatePostViewModel extends AndroidViewModel {
     }
 
     public void submitPost() {
+        if (title.getValue() == null || title.getValue().isEmpty() || body.getValue() == null || body.getValue().isEmpty()){
+            throw new IllegalArgumentException();
+        }
+
+
         UserRepository userRepository = UserRepository.getInstance(application);
 
         LiveData<FirebaseUser> currentUser = userRepository.getCurrentUser();
-        Post newPost = new Post(title.getValue(), body.getValue(), currentUser);
+        Post newPost = new Post(title.getValue(), body.getValue(), currentUser.getValue().getUid());
         postRepository.submitPost(newPost);
     }
 

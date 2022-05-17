@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,13 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.helpinghandapp.R;
 import com.github.helpinghandapp.adapter.MyPostRecyclerViewAdapter;
-import com.github.helpinghandapp.signin.SignInActivity;
-import com.github.helpinghandapp.signin.SignInViewModel;
+import com.github.helpinghandapp.model.Post;
+import com.github.helpinghandapp.SignInActivity;
+import com.github.helpinghandapp.viewmodel.SignInViewModel;
 import com.github.helpinghandapp.viewmodel.ShowPostsViewModel;
+
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -75,19 +78,26 @@ public class ShowPostsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-
-            //Set the on click so you can inspect posts.
-            MyPostRecyclerViewAdapter postViewAdapter = new MyPostRecyclerViewAdapter(viewModel.getListOfPosts());
-
             Bundle finalSavedInstanceState = savedInstanceState;
-            postViewAdapter.setOnClickListener(post -> {
-                finalSavedInstanceState.putInt(POST_ID, post.getId());
-                Bundle newBundle = new Bundle();
-                newBundle.putInt(POST_ID, post.getId());
-                NavHostFragment.findNavController(ShowPostsFragment.this)
-                        .navigate(R.id.action_showPostsFragment_to_inspectPostFragment, newBundle);
+            viewModel.getListOfPosts().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+                @Override
+                public void onChanged(List<Post> posts) {
+                    MyPostRecyclerViewAdapter postViewAdapter = new MyPostRecyclerViewAdapter(posts, getActivity().getApplication());
+
+                    postViewAdapter.setOnClickListener(post -> {
+                        finalSavedInstanceState.putString(POST_ID, post.getId());
+                        Bundle newBundle = new Bundle();
+                        newBundle.putString(POST_ID, post.getId());
+                        NavHostFragment.findNavController(ShowPostsFragment.this)
+                                .navigate(R.id.action_showPostsFragment_to_inspectPostFragment, newBundle);
+                    });
+                    recyclerView.setAdapter(postViewAdapter);
+                }
             });
-            recyclerView.setAdapter(postViewAdapter);
+            //Set the on click so you can inspect posts.
+
+
+
 
         }
 

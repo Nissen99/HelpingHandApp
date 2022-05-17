@@ -1,13 +1,17 @@
 package com.github.helpinghandapp.adapter;
 
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.helpinghandapp.databinding.FragmentShowPostsBinding;
+import com.github.helpinghandapp.model.Comment;
 import com.github.helpinghandapp.model.Post;
+import com.github.helpinghandapp.repository.UserRepository;
 
 import java.util.List;
 
@@ -16,9 +20,12 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
 
     private final List<Post> posts;
     private OnClickListener onClickListener;
+    private UserRepository userRepository;
 
-    public MyPostRecyclerViewAdapter(List<Post> items) {
+
+    public MyPostRecyclerViewAdapter(List<Post> items, Application application) {
         posts = items;
+        userRepository = UserRepository.getInstance(application);
     }
 
     @Override
@@ -33,6 +40,15 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
 
         holder.mIdView.setText(posts.get(position).getTitle());
         holder.mContentView.setText(posts.get(position).getBody());
+        userRepository.getDisplayNameFromUid(posts.get(position).getAuthorId()).observeForever( new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+
+                holder.mAuthorView.setText(s);
+
+            }
+        });
+
     }
 
     public void setOnClickListener(OnClickListener listener) {
@@ -47,14 +63,17 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
+        public final TextView mAuthorView;
 
         public ViewHolder(FragmentShowPostsBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            mIdView = binding.title;
+            mContentView = binding.body;
             binding.getRoot().setOnClickListener(view -> {
                 onClickListener.onClick(posts.get(getBindingAdapterPosition()));
             });
+            mAuthorView = binding.author;
+
         }
 
 
