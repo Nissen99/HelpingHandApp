@@ -15,7 +15,7 @@ Som bruger er man ikke låst i en rolle, men kan skifte på transktions basis.
 
 
 
-Her er  krav i prioriteret rækkefølge: 
+## Her er  krav i prioriteret rækkefølge: 
 
 1. Som søgende vil jeg oprette et opslag, for at hjælpere kan finde mit problem.     (DONE)
 
@@ -32,7 +32,7 @@ Her er  krav i prioriteret rækkefølge:
 
 
 
-Appen skulle opfylde krav:
+## Appen skulle opfylde krav:
 1. Basic - Det er en app som virker med kode der er nemt at tilføje til.
 2. Interaction - Her kan man både oprette posts og kommentarer.
 3. Navigation - Her har jeg 3 forskellige views man som bruger hele tiden skifter i mellem + login. Der bliver endda sendt data mellem ShowPost og InspectPost.
