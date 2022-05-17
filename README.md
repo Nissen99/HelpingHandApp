@@ -2,7 +2,7 @@
 
 
 Formålet med projektet er at lave en app der kan bruges både af folk der står og mangler en hjælpende hånd, men også folk der er villig til at hjælpe til.
-Idéen er at hvis man står og skal bruge hjælp kan man lave et opslag. Der vil så være en person i nærheden der kan acceptere arbejdet og komme med en hjælpende hånd.
+Idéen er at hvis man står og skal bruge hjælp kan man lave et opslag. Der vil så være en person i nærheden der kan komme med en hjælpende hånd.
 Betaling/lignende vil ikke blive håndteret i appen, men man kan jo i et post skrive hvis man er villig til at betale eller give et stykke pizza og en kold øl. 
 
 
