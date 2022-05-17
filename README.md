@@ -25,9 +25,13 @@ Som bruger er man ikke låst i en rolle, men kan skifte på transktions basis.
 
 4. Som bruger vil jeg logge ind i systemet, for at identificere mig.   (DONE)
 
-5. Som søgende vil jeg putte lokation på mine opslag, for at hjælpere nær mig er interesseret.  
+5. Som søgende vil jeg sætte hvor mange hjælpere jeg leder efter, for at give hjælpere mere information.
 
-6. Som hjælper vil jeg søge efter opslag på lokation, for at finde opslag nær mig.
+6. Som hjælper vil jeg se hvor mange hjælpere et opslag leder efter, for at se om der er behov for min hjælp.
+
+7. Som søgende vil jeg putte lokation på mine opslag, for at hjælpere nær mig er interesseret.  
+
+8. Som hjælper vil jeg søge efter opslag på lokation, for at finde opslag nær mig.
 
 
 
