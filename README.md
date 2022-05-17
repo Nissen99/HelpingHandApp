@@ -19,7 +19,7 @@ Som bruger er man ikke låst i en rolle, men kan skifte på transktions basis.
 
 1. Som søgende vil jeg oprette et opslag, for at hjælpere kan finde mit problem.     (DONE)
 
-2. Som hjælper vil jeg se en oversigt over opslag, for at finde opslag jeg kan hjælpe ved.   (DONE
+2. Som hjælper vil jeg se en oversigt over opslag, for at finde opslag jeg kan hjælpe ved.   (DONE)
 
 3. Som hjælper vil jeg kontakte søgende, for at svare på opslag.    (DONE)
 
