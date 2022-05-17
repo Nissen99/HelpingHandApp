@@ -9,4 +9,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="wire_comment">Wire comment......</string>
+    <string name="remove_all_filters">Remove all filters</string>
+    <string name="show_post_i_commented_on">Show post I commented on</string>
+    <string name="show_my_posts">Show my Posts</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.github.helpinghandapp.R;
 import com.github.helpinghandapp.adapter.MyPostRecyclerViewAdapter;
@@ -67,15 +68,14 @@ public class ShowPostsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(ShowPostsViewModel.class);
 
-
+        RecyclerView recyclerViewForPost = view.findViewById(R.id.listForPost);
         // Set the adapter
-        if (view instanceof RecyclerView) {
+
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerViewForPost.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerViewForPost.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
             Bundle finalSavedInstanceState = savedInstanceState;
@@ -91,15 +91,28 @@ public class ShowPostsFragment extends Fragment {
                         NavHostFragment.findNavController(ShowPostsFragment.this)
                                 .navigate(R.id.action_showPostsFragment_to_inspectPostFragment, newBundle);
                     });
-                    recyclerView.setAdapter(postViewAdapter);
+                    recyclerViewForPost.setAdapter(postViewAdapter);
                 }
             });
-            //Set the on click so you can inspect posts.
+
+
+            Button showMyPostsButton = view.findViewById(R.id.showMyPostButton);
+            showMyPostsButton.setOnClickListener(view1 -> {
+                viewModel.filterOnlyMyPost();
+            });
+
+            Button showICommentedOnButton = view.findViewById(R.id.showCommentedButton);
+            showICommentedOnButton.setOnClickListener(view1 -> {
+                viewModel.filterOnlyPostICommentedOn();
+            });
+
+            Button removeFilterButton = view.findViewById(R.id.removeFilterButton);
+            removeFilterButton.setOnClickListener(view1 -> {
+                viewModel.removeAllFilters();
+            });
 
 
 
-
-        }
 
         return view;
     }

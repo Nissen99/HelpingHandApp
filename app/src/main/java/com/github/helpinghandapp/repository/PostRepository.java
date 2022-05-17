@@ -71,7 +71,7 @@ public class PostRepository extends RepositoryUtil {
 
     }
 
-    public LiveData<List<Post>> getListOfPosts() {
+    public MutableLiveData<List<Post>> getListOfPosts() {
         MutableLiveData<List<Post>> listOfPosts = new MutableLiveData<>();
 
         getDatabaseReference()
@@ -93,4 +93,6 @@ public class PostRepository extends RepositoryUtil {
                 });
         return listOfPosts;
     }
+
+
 }

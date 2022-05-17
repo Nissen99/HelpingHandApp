@@ -18,8 +18,12 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
     public void saveDisplayNameFromUser() {
-        if (getCurrentUser() != null) {
-            userRepository.saveDisplayNameFromUser();
+        try {
+            if (getCurrentUser() != null) {
+                userRepository.saveDisplayNameFromUser();
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
