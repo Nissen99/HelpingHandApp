@@ -1,5 +1,6 @@
 # HelpingHandApp
 
+## VIDEO: https://www.youtube.com/watch?v=_q98REvPkMc
 
 Formålet med projektet er at lave en app der kan bruges både af folk der står og mangler en hjælpende hånd, men også folk der er villig til at hjælpe til.
 Idéen er at hvis man står og skal bruge hjælp kan man lave et opslag. Der vil så være en person i nærheden der kan komme med en hjælpende hånd.
